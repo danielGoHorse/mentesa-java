@@ -4,22 +4,29 @@ package com.example.mentesajava.model;
 import jakarta.persistence.*;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.UUID;
 
 
 @Data
-public class ContatoMedicoModel {
+@Entity
+@Table(name = "tb_contato_medico")
+public class ContatoMedicoModel implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     @Column(name = "create_date")
-    private Date createDate;
+    private LocalDateTime createDate;
 
     @Column(name = "update_date")
-    private Date updateDate;
+    private LocalDateTime updateDate;
 
     @Column(name = "status")
     private boolean status;

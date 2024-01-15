@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ValidationException;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class ContatoMedicoService {
 
         ContatoPrincipalVO vo = new ContatoPrincipalVO();
         if (!listModel.isEmpty()) {
-            vo.setId(listModel.get(0).getId());
+//            vo.setId(listModel.get(0).getId());
             vo.setNome(listModel.get(0).getNome());
             vo.setTelefone(listModel.get(0).getTelefone());
         } else {
@@ -38,19 +39,19 @@ public class ContatoMedicoService {
 
     }
 
-    public ContatoMedicoModel editar(ContatoMedicoDto dto) {
+    public ContatoMedicoModel editar(Long id,ContatoMedicoDto dto) {
 
         ContatoMedicoModel model = new ContatoMedicoModel();
 
-        if (dto.getId() != null) {
+        if (id != null) {
 
-            model = this._contatoMedicoRepository.findById(dto.getId()).orElse(criar(dto));
+            model = this._contatoMedicoRepository.findById(id).orElse(criar(dto));
 
             model.setNome(dto.getNome());
             model.setEmail(dto.getEmail());
             model.setStatus(dto.isStatus());
             model.setTelefone(dto.getTelefone());
-            model.setUpdateDate(new Date());
+            model.setUpdateDate(LocalDateTime.now());
 
             model = this._contatoMedicoRepository.save(model);
 
@@ -65,15 +66,16 @@ public class ContatoMedicoService {
 
         ContatoMedicoModel model = new ContatoMedicoModel();
 
-        if (dto.getId() == null) {
+
             model.setNome(dto.getNome());
             model.setEmail(dto.getEmail());
             model.setStatus(dto.isStatus());
             model.setTelefone(dto.getTelefone());
-            model.setUpdateDate(new Date());
+            model.setCreateDate(LocalDateTime.now());
+            model.setUpdateDate(LocalDateTime.now());
 
             model = this._contatoMedicoRepository.save(model);
-        }
-        return model;
+
+            return model;
     }
 }

@@ -11,16 +11,17 @@ import javax.validation.ValidationException;
 
 
 @RestController
-@RequestMapping("/contato_medico")
+@RequestMapping("/contatoMedico")
 public class ContatoMedicoController {
 
     @Autowired
     private ContatoMedicoService _contatoMedicoService;
 
-    @GetMapping("/contatoMedico/{id}")
-    public ResponseEntity retornaContatoMedico(@PathVariable Long id) throws Exception{
+    @GetMapping("/{id}")
+    public ResponseEntity retornaContatoMedico(@PathVariable(value="id") Long id) throws Exception{
         try {
-            return new ResponseEntity(this._contatoMedicoService.retornaContatoPrincipal(id), HttpStatus.OK);
+            return ResponseEntity.ok("deu Ok");
+            //            return new ResponseEntity(this._contatoMedicoService.retornaContatoPrincipal(id), HttpStatus.OK);
         } catch (ValidationException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.CONFLICT);
         } catch (Exception e) {
@@ -28,10 +29,10 @@ public class ContatoMedicoController {
         }
     }
 
-    @PostMapping("/editarContatoMedico")
-    public ResponseEntity editarContatoMedico(@RequestBody ContatoMedicoDto dto) throws Exception{
+    @PutMapping ("/{id}")
+    public ResponseEntity editarContatoMedico(@PathVariable(value="id") Long id, @RequestBody ContatoMedicoDto dto ) throws Exception{
         try {
-            return new ResponseEntity(this._contatoMedicoService.editar(dto), HttpStatus.OK);
+            return new ResponseEntity(this._contatoMedicoService.editar(id, dto), HttpStatus.OK);
         } catch (ValidationException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.CONFLICT);
         } catch (Exception e) {
@@ -39,7 +40,7 @@ public class ContatoMedicoController {
         }
     }
 
-    @PostMapping("/criarContatoMedico")
+    @PostMapping("/")
     public ResponseEntity criarContatoMedico(@RequestBody ContatoMedicoDto dto) throws Exception{
         try {
             return new ResponseEntity(this._contatoMedicoService.criar(dto), HttpStatus.OK);

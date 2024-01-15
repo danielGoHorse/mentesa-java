@@ -8,6 +8,7 @@ import com.example.mentesajava.vo.ContatoPrincipalVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class ContatoPrincipalService {
             model.setNome(dto.getNome());
             model.setEmail(dto.getEmail());
             model.setTelefone(dto.getTelefone());
-            model.setUpdateDate(new Date());
+            model.setUpdateDate(LocalDateTime.now());
 
             model = this._contatoPricipalRepository.save(model);
 
@@ -63,7 +64,7 @@ public class ContatoPrincipalService {
             model.setNome(dto.getNome());
             model.setEmail(dto.getEmail());
             model.setTelefone(dto.getTelefone());
-            model.setUpdateDate(new Date());
+            model.setUpdateDate(LocalDateTime.now());
 
             model = this._contatoPricipalRepository.save(model);
         }

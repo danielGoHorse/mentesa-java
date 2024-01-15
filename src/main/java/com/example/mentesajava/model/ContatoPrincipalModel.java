@@ -5,20 +5,25 @@ package com.example.mentesajava.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 @Data
 @Entity
-@Table
-public class ContatoPrincipalModel {
+@Table(name = "tb_contato_principal")
+public class ContatoPrincipalModel implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "create_date")
-    private Date createDate;
+    private LocalDateTime createDate;
 
     @Column(name = "update_date")
-    private Date updateDate;
+    private LocalDateTime updateDate;
 
     @Column(name = "status")
     private boolean status;
@@ -33,7 +38,7 @@ public class ContatoPrincipalModel {
     private String telefone;
 
     @Column(name = "grau_parentesco")
-    private String grauParentesco;
+    private Integer grauParentesco;
 
 //    @ManyToOne
 //    @JoinColumn(name = "id_usuario")
