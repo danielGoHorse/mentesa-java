@@ -1,7 +1,9 @@
 package com.example.mentesajava.service;
 
 
+import com.example.mentesajava.dto.ContatoMedicoDto;
 import com.example.mentesajava.dto.ContatoPrincipalDto;
+import com.example.mentesajava.model.ContatoMedicoModel;
 import com.example.mentesajava.model.ContatoPrincipalModel;
 import com.example.mentesajava.repository.ContatoPricipalRepository;
 import com.example.mentesajava.vo.ContatoPrincipalVO;
@@ -25,7 +27,7 @@ public class ContatoPrincipalService {
 
         ContatoPrincipalVO vo = new ContatoPrincipalVO();
         if (!listModel.isEmpty()){
-            vo.setId(listModel.get(0).getId());
+//            vo.setId(listModel.get(0).getId());
             vo.setNome(listModel.get(0).getNome());
             vo.setTelefone(listModel.get(0).getTelefone());
         }
@@ -34,13 +36,13 @@ public class ContatoPrincipalService {
 
     }
 
-    public ContatoPrincipalModel editar(ContatoPrincipalDto dto) {
+    public ContatoPrincipalModel editar(Long id,ContatoPrincipalDto dto) {
 
         ContatoPrincipalModel model = new ContatoPrincipalModel();
 
-        if (dto.getId() != null) {
+        if (id != null) {
 
-            model = this._contatoPricipalRepository.findById(dto.getId()).orElse(criar(dto));
+            model = this._contatoPricipalRepository.findById(id).orElse(criar(dto));
 
             model.setNome(dto.getNome());
             model.setEmail(dto.getEmail());
@@ -60,14 +62,18 @@ public class ContatoPrincipalService {
 
         ContatoPrincipalModel model = new ContatoPrincipalModel();
 
-        if (dto.getId() == null) {
+
             model.setNome(dto.getNome());
             model.setEmail(dto.getEmail());
             model.setTelefone(dto.getTelefone());
+            model.setGrauParentesco(dto.getGrau_parentesco());
+            model.setCreateDate(LocalDateTime.now());
             model.setUpdateDate(LocalDateTime.now());
 
             model = this._contatoPricipalRepository.save(model);
-        }
+
         return model;
     }
+
+
 }

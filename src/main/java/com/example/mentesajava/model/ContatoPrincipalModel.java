@@ -8,6 +8,8 @@ import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.UUID;
+
 @Data
 @Entity
 @Table(name = "tb_contato_principal")
@@ -16,8 +18,8 @@ public class ContatoPrincipalModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     @Column(name = "create_date")
     private LocalDateTime createDate;
