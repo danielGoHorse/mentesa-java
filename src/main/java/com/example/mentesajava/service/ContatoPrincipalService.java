@@ -66,6 +66,7 @@ public class ContatoPrincipalService {
             model.setNome(dto.getNome());
             model.setEmail(dto.getEmail());
             model.setTelefone(dto.getTelefone());
+            model.setStatus(true);
             model.setGrauParentesco(dto.getGrau_parentesco());
             model.setCreateDate(LocalDateTime.now());
             model.setUpdateDate(LocalDateTime.now());

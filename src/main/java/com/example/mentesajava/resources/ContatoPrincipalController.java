@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.ValidationException;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/contato_principal")
 public class ContatoPrincipalController {
 
