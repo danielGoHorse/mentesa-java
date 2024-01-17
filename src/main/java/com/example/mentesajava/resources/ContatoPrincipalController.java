@@ -21,7 +21,7 @@ public class ContatoPrincipalController {
     @Autowired
     private ContatoPricipalRepository repository;
 
-    @GetMapping("/")
+    @GetMapping("/consultaContatoPrincipal")
     public ResponseEntity retornaContatoPrincipal() throws Exception{
         try {
             return new ResponseEntity(this._contatoPrincipalService.retornaContatoPrincipal(), HttpStatus.OK);
