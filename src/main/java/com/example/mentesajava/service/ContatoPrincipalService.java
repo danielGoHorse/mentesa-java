@@ -51,6 +51,7 @@ public class ContatoPrincipalService {
             model.setEmail(dto.getEmail());
             model.setTelefone(dto.getTelefone());
             model.setUpdateDate(LocalDateTime.now());
+            model.setCreateDate(listModel.get(0).getCreateDate());
 
             model = this._contatoPricipalRepository.save(model);
         } else {
