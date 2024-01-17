@@ -10,6 +10,7 @@ import com.example.mentesajava.vo.ContatoPrincipalVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.ValidationException;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -17,17 +18,19 @@ import java.util.List;
 @Service
 public class ContatoPrincipalService {
 
+    private static final String REGISTRO_CADASTRADO = "Contato Principal já cadastrado!";
+
     @Autowired
     private ContatoPricipalRepository _contatoPricipalRepository;
 
 
-    public ContatoPrincipalVO retornaContatoPrincipal(Long id) {
+    public ContatoPrincipalVO retornaContatoPrincipal() {
 
-        List<ContatoPrincipalModel> listModel = this._contatoPricipalRepository.consultaPorId(id);
+        List<ContatoPrincipalModel> listModel = this._contatoPricipalRepository.consultaConatoPrincipal();
 
         ContatoPrincipalVO vo = new ContatoPrincipalVO();
         if (!listModel.isEmpty()){
-//            vo.setId(listModel.get(0).getId());
+            vo.setId(listModel.get(0).getId());
             vo.setNome(listModel.get(0).getNome());
             vo.setTelefone(listModel.get(0).getTelefone());
         }
@@ -36,42 +39,43 @@ public class ContatoPrincipalService {
 
     }
 
-    public ContatoPrincipalModel editar(Long id,ContatoPrincipalDto dto) {
+    public ContatoPrincipalModel editar(ContatoPrincipalDto dto) {
 
         ContatoPrincipalModel model = new ContatoPrincipalModel();
 
-        if (id != null) {
+        model = this._contatoPricipalRepository.findById(dto.getId()).orElse(null);
 
-            model = this._contatoPricipalRepository.findById(id).orElse(criar(dto));
-
+        if (model != null){
             model.setNome(dto.getNome());
             model.setEmail(dto.getEmail());
             model.setTelefone(dto.getTelefone());
             model.setUpdateDate(LocalDateTime.now());
 
             model = this._contatoPricipalRepository.save(model);
-
-        } else {
-            model = criar(dto);
         }
 
         return model;
+
     }
 
     public ContatoPrincipalModel criar(ContatoPrincipalDto dto) {
 
+        List<ContatoPrincipalModel> listModel = this._contatoPricipalRepository.consultaConatoPrincipal();
+        if (!listModel.isEmpty()) {
+            throw new ValidationException(REGISTRO_CADASTRADO);
+        }
+
         ContatoPrincipalModel model = new ContatoPrincipalModel();
 
+        model.setNome(dto.getNome());
+        model.setEmail(dto.getEmail());
+        model.setTelefone(dto.getTelefone());
+        model.setStatus(true);
+        model.setGrauParentesco(dto.getGrau_parentesco());
+        model.setCreateDate(LocalDateTime.now());
+        model.setUpdateDate(LocalDateTime.now());
 
-            model.setNome(dto.getNome());
-            model.setEmail(dto.getEmail());
-            model.setTelefone(dto.getTelefone());
-            model.setStatus(true);
-            model.setGrauParentesco(dto.getGrau_parentesco());
-            model.setCreateDate(LocalDateTime.now());
-            model.setUpdateDate(LocalDateTime.now());
-
-            model = this._contatoPricipalRepository.save(model);
+        model = this._contatoPricipalRepository.save(model);
 
         return model;
     }

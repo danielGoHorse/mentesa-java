@@ -22,15 +22,9 @@ public class ContatoPrincipalController {
     private ContatoPricipalRepository repository;
 
     @GetMapping("/")
-    public  ResponseEntity retornaTodos(){
-        var allMainContact = repository.findAll();
-        return ResponseEntity.ok(allMainContact);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity retornaContatoPrincipal(@PathVariable Long id) throws Exception{
+    public ResponseEntity retornaContatoPrincipal() throws Exception{
         try {
-            return new ResponseEntity(this._contatoPrincipalService.retornaContatoPrincipal(id), HttpStatus.OK);
+            return new ResponseEntity(this._contatoPrincipalService.retornaContatoPrincipal(), HttpStatus.OK);
         } catch (ValidationException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
@@ -38,10 +32,10 @@ public class ContatoPrincipalController {
         }
     }
 
-    @PutMapping ("/{id}")
-    public ResponseEntity editarContatoPrincipal(@PathVariable(value="id") Long id,@RequestBody ContatoPrincipalDto dto) throws Exception{
+    @PutMapping ("editar/{id}")
+    public ResponseEntity editarContatoPrincipal(@RequestBody ContatoPrincipalDto dto) throws Exception{
         try {
-            return new ResponseEntity(this._contatoPrincipalService.editar(id, dto), HttpStatus.OK);
+            return new ResponseEntity(this._contatoPrincipalService.editar(dto), HttpStatus.OK);
         } catch (ValidationException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
@@ -49,7 +43,7 @@ public class ContatoPrincipalController {
         }
     }
 
-    @PostMapping("/create")
+    @PostMapping("/criar")
     public ResponseEntity criarContatoPrincipal(@RequestBody ContatoPrincipalDto dto) throws Exception{
         try {
             return new ResponseEntity(this._contatoPrincipalService.criar(dto), HttpStatus.OK);
@@ -59,6 +53,5 @@ public class ContatoPrincipalController {
             return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 
 }
