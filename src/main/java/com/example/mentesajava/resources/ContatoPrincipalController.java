@@ -32,7 +32,7 @@ public class ContatoPrincipalController {
         }
     }
 
-    @PutMapping ("editar")
+    @PutMapping ("/editar")
     public ResponseEntity editarContatoPrincipal(@RequestBody ContatoPrincipalDto dto) throws Exception{
         try {
             return new ResponseEntity(this._contatoPrincipalService.editar(dto), HttpStatus.OK);
