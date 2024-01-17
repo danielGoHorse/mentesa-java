@@ -19,6 +19,7 @@ import java.util.List;
 public class ContatoPrincipalService {
 
     private static final String REGISTRO_CADASTRADO = "Contato Principal já cadastrado!";
+    private static final String REGISTRO_NAO_ENCONTRADO = "Registro não encontrado!";
 
     @Autowired
     private ContatoPricipalRepository _contatoPricipalRepository;
@@ -52,6 +53,8 @@ public class ContatoPrincipalService {
             model.setUpdateDate(LocalDateTime.now());
 
             model = this._contatoPricipalRepository.save(model);
+        } else {
+            throw new ValidationException(REGISTRO_NAO_ENCONTRADO);
         }
 
         return model;
