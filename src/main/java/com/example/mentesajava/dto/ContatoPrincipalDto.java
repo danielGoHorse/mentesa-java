@@ -8,7 +8,7 @@ import java.util.UUID;
 @Data
 public class ContatoPrincipalDto {
 
-    private Long id;
+    private UUID id;
     private String nome;
     private String email;
     private String telefone;

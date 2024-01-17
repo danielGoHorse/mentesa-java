@@ -7,13 +7,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public interface ContatoPricipalRepository extends JpaRepository<ContatoPrincipalModel, Long> {
     @Query(value = "SELECT c" +
             " FROM ContatoPrincipalModel c" +
             " WHERE c.id = :id")
-    List<ContatoPrincipalModel> consultaPorId(@Param("id") Long id);
+    List<ContatoPrincipalModel> consultaPorId(@Param("id") UUID id);
 
     @Query(value = "SELECT c" +
             " FROM ContatoPrincipalModel c")
