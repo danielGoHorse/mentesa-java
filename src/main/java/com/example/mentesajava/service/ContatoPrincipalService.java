@@ -47,6 +47,7 @@ public class ContatoPrincipalService {
         List<ContatoPrincipalModel> listModel = this._contatoPricipalRepository.consultaPorId(dto.getId());
 
         if (!listModel.isEmpty()){
+            model.setId(listModel.get(0).getId());
             model.setNome(dto.getNome());
             model.setEmail(dto.getEmail());
             model.setTelefone(dto.getTelefone());
