@@ -5,11 +5,11 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
-
 @Data
 @Entity
-@Table(name = "tb_usuario")
-public class UsuarioModel {
+@Table(name = "tb_humor")
+public class HumorModel {
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -23,14 +23,4 @@ public class UsuarioModel {
 
     @Column(name = "status")
     private boolean status;
-
-    @Column(name = "nome")
-    private String nome;
-
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "telefone")
-    private String telefone;
-
 }

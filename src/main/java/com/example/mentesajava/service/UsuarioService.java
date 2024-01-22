@@ -18,8 +18,8 @@ import java.util.List;
 @Service
 public class UsuarioService {
 
-    private static final String REGISTRO_CADASTRADO = "Contato Principal já cadastrado!";
-    private static final String REGISTRO_NAO_ENCONTRADO = "Registro não encontrado!";
+    private static final String REGISTRO_CADASTRADO = "Usuário já cadastrado!";
+    private static final String REGISTRO_NAO_ENCONTRADO = "Usuário não encontrado!";
 
     @Autowired
     private UsuarioRepository _usuarioRepository;
