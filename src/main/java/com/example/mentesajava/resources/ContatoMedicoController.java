@@ -33,7 +33,7 @@ public class ContatoMedicoController {
     public ResponseEntity retornaContatoMedico(@PathVariable(value="id") Long id) throws Exception{
         try {
             return ResponseEntity.ok("deu Ok");
-            //            return new ResponseEntity(this._contatoMedicoService.retornaContatoPrincipal(id), HttpStatus.OK);
+//        return new ResponseEntity(this._contatoMedicoService.retornaContatoPrincipal(id), HttpStatus.OK);
         } catch (ValidationException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {

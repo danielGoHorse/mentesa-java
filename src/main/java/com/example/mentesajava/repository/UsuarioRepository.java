@@ -15,10 +15,10 @@ public interface UsuarioRepository extends JpaRepository<UsuarioModel, Long> {
 
     @Query(value = "SELECT c" +
             " FROM UsuarioModel c" +
-            " WHERE c.id = :id")
-    List<UsuarioModel> consultaPorId(@Param("id") UUID id);
+            " WHERE c.id_fire = :id_fire")
+    List<UsuarioModel> consultaPorIdFire (@Param("id_fire") String id_fire);
 
     @Query(value = "SELECT c" +
-            " FROM ContatoPrincipalModel c")
+            " FROM UsuarioModel c")
     List<UsuarioModel> consultaUsuario();
 }

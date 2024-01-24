@@ -7,7 +7,9 @@ import java.util.UUID;
 public class UsuarioVO {
 
     private UUID id;
+    private String id_fire;
     private String nome;
     private String telefone;
+    private String email;
 
 }

@@ -1,5 +1,7 @@
 package com.example.mentesajava.service;
 
+import com.example.mentesajava.dto.ContatoPrincipalDto;
+import com.example.mentesajava.dto.UsuarioDto;
 import com.example.mentesajava.model.ContatoMedicoModel;
 import com.example.mentesajava.model.ContatoPrincipalModel;
 import com.example.mentesajava.model.UsuarioModel;
@@ -32,12 +34,53 @@ public class UsuarioService {
         UsuarioVO vo = new UsuarioVO();
         if (!listModel.isEmpty()){
             vo.setId(listModel.get(0).getId());
+            vo.setId_fire(listModel.get(0).getId_fire());
             vo.setNome(listModel.get(0).getNome());
             vo.setTelefone(listModel.get(0).getTelefone());
+            vo.setEmail(listModel.get(0).getEmail());
         }
 
         return vo;
 
+    }
+    public UsuarioVO retornaUsuarioByFire(String id_fire) {
+
+        List<UsuarioModel> listModel = this._usuarioRepository.consultaPorIdFire(id_fire);
+
+        UsuarioVO vo = new UsuarioVO();
+        if (!listModel.isEmpty()){
+            vo.setId(listModel.get(0).getId());
+            vo.setId_fire(listModel.get(0).getId_fire());
+            vo.setNome(listModel.get(0).getNome());
+            vo.setTelefone(listModel.get(0).getTelefone());
+            vo.setEmail(listModel.get(0).getEmail());
+        }
+
+        return vo;
+
+    }
+
+
+    public UsuarioModel criar(UsuarioDto dto) {
+
+        List<UsuarioModel> listModel = this._usuarioRepository.consultaUsuario();
+        if (!listModel.isEmpty()) {
+            throw new ValidationException(REGISTRO_CADASTRADO);
+        }
+
+        UsuarioModel model = new UsuarioModel();
+
+        model.setId_fire(dto.getId_fire());
+        model.setNome(dto.getNome());
+        model.setEmail(dto.getEmail());
+        model.setTelefone(dto.getTelefone());
+        model.setStatus(true);
+        model.setCreateDate(LocalDateTime.now());
+        model.setUpdateDate(LocalDateTime.now());
+
+        model = this._usuarioRepository.save(model);
+
+        return model;
     }
 
 }

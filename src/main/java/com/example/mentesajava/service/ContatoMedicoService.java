@@ -28,7 +28,7 @@ public class ContatoMedicoService {
 
         ContatoPrincipalVO vo = new ContatoPrincipalVO();
         if (!listModel.isEmpty()) {
-//            vo.setId(listModel.get(0).getId());
+            vo.setId(listModel.get(0).getId());
             vo.setNome(listModel.get(0).getNome());
             vo.setTelefone(listModel.get(0).getTelefone());
         } else {
