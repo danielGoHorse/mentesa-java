@@ -21,19 +21,19 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioRepository repository;
-    @GetMapping("/consultaUsuario")
-    public ResponseEntity retornaUsuario() throws Exception{
-        try {
-            return new ResponseEntity(this._usuarioService.retornaUsuario(), HttpStatus.OK);
-        } catch (ValidationException e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
-        } catch (Exception e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+//    @GetMapping("/consultaUsuario")
+//    public ResponseEntity retornaUsuario() throws Exception{
+//        try {
+//            return new ResponseEntity(this._usuarioService.retornaUsuario(), HttpStatus.OK);
+//        } catch (ValidationException e) {
+//            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+//        } catch (Exception e) {p
+//            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
     @GetMapping("/{id_fire}")
-    public ResponseEntity<Object> buscarPorIdFire(@PathVariable String id_fire) {
+    public ResponseEntity<Object> buscarPorIdFire(@PathVariable String id_fire) throws Exception {
         try {
 //            return ResponseEntity.ok("deu Ok");
             return new ResponseEntity(this._usuarioService.retornaUsuarioByFire(id_fire), HttpStatus.OK);

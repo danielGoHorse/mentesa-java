@@ -11,5 +11,6 @@ public class UsuarioVO {
     private String nome;
     private String telefone;
     private String email;
+    private boolean status;
 
 }

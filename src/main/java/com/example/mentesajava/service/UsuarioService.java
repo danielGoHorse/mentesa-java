@@ -27,22 +27,22 @@ public class UsuarioService {
     private UsuarioRepository _usuarioRepository;
 
 
-    public UsuarioVO retornaUsuario() {
-
-        List<UsuarioModel> listModel = this._usuarioRepository.consultaUsuario();
-
-        UsuarioVO vo = new UsuarioVO();
-        if (!listModel.isEmpty()){
-            vo.setId(listModel.get(0).getId());
-            vo.setId_fire(listModel.get(0).getId_fire());
-            vo.setNome(listModel.get(0).getNome());
-            vo.setTelefone(listModel.get(0).getTelefone());
-            vo.setEmail(listModel.get(0).getEmail());
-        }
-
-        return vo;
-
-    }
+//    public UsuarioVO retornaUsuario() {
+//
+//        List<UsuarioModel> listModel = this._usuarioRepository.consultaUsuario();
+//
+//        UsuarioVO vo = new UsuarioVO();
+//        if (!listModel.isEmpty()){
+//            vo.setId(listModel.get(0).getId());
+//            vo.setId_fire(listModel.get(0).getId_fire());
+//            vo.setNome(listModel.get(0).getNome());
+//            vo.setTelefone(listModel.get(0).getTelefone());
+//            vo.setEmail(listModel.get(0).getEmail());
+//        }
+//
+//        return vo;
+//
+//    }
     public UsuarioVO retornaUsuarioByFire(String id_fire) {
 
         List<UsuarioModel> listModel = this._usuarioRepository.consultaPorIdFire(id_fire);
@@ -54,9 +54,11 @@ public class UsuarioService {
             vo.setNome(listModel.get(0).getNome());
             vo.setTelefone(listModel.get(0).getTelefone());
             vo.setEmail(listModel.get(0).getEmail());
-        }
 
-        return vo;
+            return vo;
+        }else {
+            throw new ValidationException(REGISTRO_NAO_ENCONTRADO);
+        }
 
     }
 
@@ -74,7 +76,7 @@ public class UsuarioService {
         model.setNome(dto.getNome());
         model.setEmail(dto.getEmail());
         model.setTelefone(dto.getTelefone());
-        model.setStatus(true);
+        model.setStatus(false);
         model.setCreateDate(LocalDateTime.now());
         model.setUpdateDate(LocalDateTime.now());
 
