@@ -33,10 +33,10 @@ public class UsuarioController {
 //    }
 
     @GetMapping("/{id_fire}")
-    public ResponseEntity<Object> buscarPorIdFire(@PathVariable String id_fire) throws Exception {
+    public ResponseEntity<Object> consultaUsuarioByFire(@PathVariable String id_fire) throws Exception {
         try {
 //            return ResponseEntity.ok("deu Ok");
-            return new ResponseEntity(this._usuarioService.retornaUsuarioByFire(id_fire), HttpStatus.OK);
+            return new ResponseEntity(this._usuarioService.consultaUsuarioByFire(id_fire), HttpStatus.OK);
         } catch (ValidationException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {

@@ -26,63 +26,41 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository _usuarioRepository;
 
+    public UsuarioVO consultaUsuarioByFire(String id_fire) {
 
-//    public UsuarioVO retornaUsuario() {
-//
-//        List<UsuarioModel> listModel = this._usuarioRepository.consultaUsuario();
-//
-//        UsuarioVO vo = new UsuarioVO();
-//        if (!listModel.isEmpty()){
-//            vo.setId(listModel.get(0).getId());
-//            vo.setId_fire(listModel.get(0).getId_fire());
-//            vo.setNome(listModel.get(0).getNome());
-//            vo.setTelefone(listModel.get(0).getTelefone());
-//            vo.setEmail(listModel.get(0).getEmail());
-//        }
-//
-//        return vo;
-//
-//    }
-    public UsuarioVO retornaUsuarioByFire(String id_fire) {
-
-        List<UsuarioModel> listModel = this._usuarioRepository.consultaPorIdFire(id_fire);
-
+        UsuarioModel model = this._usuarioRepository.consultaPorIdFire(id_fire);
         UsuarioVO vo = new UsuarioVO();
-        if (!listModel.isEmpty()){
-            vo.setId(listModel.get(0).getId());
-            vo.setId_fire(listModel.get(0).getId_fire());
-            vo.setNome(listModel.get(0).getNome());
-            vo.setTelefone(listModel.get(0).getTelefone());
-            vo.setEmail(listModel.get(0).getEmail());
 
-            return vo;
-        }else {
+        if (model.isStatus()) {
+            vo.setId(model.getId());
+            vo.setId_fire(model.getId_fire());
+            vo.setNome(model.getNome());
+            vo.setTelefone(model.getTelefone());
+            vo.setEmail(model.getEmail());
+        } else {
             throw new ValidationException(REGISTRO_NAO_ENCONTRADO);
         }
 
+        return vo;
     }
 
 
     public UsuarioModel criar(UsuarioDto dto) {
 
-        List<UsuarioModel> listModel = this._usuarioRepository.consultaUsuario();
-        if (!listModel.isEmpty()) {
-            throw new ValidationException(REGISTRO_CADASTRADO);
+        UsuarioModel model = this._usuarioRepository.consultaPorIdFire(dto.getId_fire());
+        if (!model.isStatus()) {
+
+            model.setId_fire(dto.getId_fire());
+            model.setNome(dto.getNome());
+            model.setEmail(dto.getEmail());
+            model.setTelefone(dto.getTelefone());
+            model.setStatus(false);
+            model.setCreateDate(LocalDateTime.now());
+            model.setUpdateDate(LocalDateTime.now());
+
+            model = this._usuarioRepository.save(model);
         }
-
-        UsuarioModel model = new UsuarioModel();
-
-        model.setId_fire(dto.getId_fire());
-        model.setNome(dto.getNome());
-        model.setEmail(dto.getEmail());
-        model.setTelefone(dto.getTelefone());
-        model.setStatus(false);
-        model.setCreateDate(LocalDateTime.now());
-        model.setUpdateDate(LocalDateTime.now());
-
-        model = this._usuarioRepository.save(model);
 
         return model;
     }
-
 }
