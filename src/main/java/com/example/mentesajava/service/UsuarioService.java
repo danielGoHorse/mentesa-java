@@ -31,10 +31,11 @@ public class UsuarioService {
         UsuarioModel model = this._usuarioRepository.consultaPorIdFire(id_fire);
         UsuarioVO vo = new UsuarioVO();
 
-        if (model.isStatus()) {
+        if (model != null) {
             vo.setId(model.getId());
             vo.setId_fire(model.getId_fire());
             vo.setNome(model.getNome());
+            vo.setStatus(model.isStatus());
             vo.setTelefone(model.getTelefone());
             vo.setEmail(model.getEmail());
         } else {
@@ -47,8 +48,9 @@ public class UsuarioService {
 
     public UsuarioModel criar(UsuarioDto dto) {
 
-        UsuarioModel model = this._usuarioRepository.consultaPorIdFire(dto.getId_fire());
-        if (!model.isStatus()) {
+//        UsuarioModel model = this._usuarioRepository.consultaPorIdFire(dto.getId_fire());
+
+        UsuarioModel model = new UsuarioModel();
 
             model.setId_fire(dto.getId_fire());
             model.setNome(dto.getNome());
@@ -59,7 +61,7 @@ public class UsuarioService {
             model.setUpdateDate(LocalDateTime.now());
 
             model = this._usuarioRepository.save(model);
-        }
+
 
         return model;
     }

@@ -8,9 +8,17 @@ spring:
     name: mentesa
 #  profiles: local
   datasource:
-    url:  jdbc:postgresql://db-instance-happy-alert.covvdf22qdcg.us-east-1.rds.amazonaws.com:5432/postgres?currentSchema=sch_mentesa
-    username: postgres
-    password: teste123
+
+      #local/:
+      url:  jdbc:postgresql://localhost:5432/menteSaLocal
+      username: postgres
+      password: admin
+
+#    prod/:
+#    url:  jdbc:postgresql://db-instance-happy-alert.covvdf22qdcg.us-east-1.rds.amazonaws.com:5432/postgres?currentSchema=sch_mentesa
+#    username: postgres
+#    password: teste123
+
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
