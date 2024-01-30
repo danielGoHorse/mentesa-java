@@ -55,5 +55,16 @@ public class UsuarioController {
         }
     }
 
+    @PutMapping("/editar")
+    public ResponseEntity editarUsuario(@RequestBody UsuarioDto dto) throws Exception{
+        try {
+            return new ResponseEntity(this._usuarioService.editar(dto), HttpStatus.OK);
+        } catch (ValidationException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 }

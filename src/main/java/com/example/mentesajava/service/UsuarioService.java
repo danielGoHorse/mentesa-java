@@ -65,4 +65,28 @@ public class UsuarioService {
 
         return model;
     }
+
+    public UsuarioModel editar(UsuarioDto dto) {
+
+//        UsuarioModel model = this._usuarioRepository.consultaPorIdFire(dto.getId_fire());
+
+        UsuarioModel model = this._usuarioRepository.consultaPorIdFire(dto.getId_fire());
+
+
+        if(model != null){
+            model.setId_fire(dto.getId_fire());
+            model.setNome(dto.getNome());
+            model.setEmail(dto.getEmail());
+            model.setTelefone(dto.getTelefone());
+            model.setStatus(true);
+            model.setUpdateDate(LocalDateTime.now());
+
+            model = this._usuarioRepository.save(model);
+        } else {
+            throw new ValidationException(REGISTRO_NAO_ENCONTRADO);
+        }
+        return model;
+    }
 }
+
+
