@@ -44,7 +44,7 @@ public class ContatoPrincipalService {
 
         ContatoPrincipalModel model = new ContatoPrincipalModel();
 
-        List<ContatoPrincipalModel> listModel = this._contatoPricipalRepository.consultaPorId(dto.getId());
+        List<ContatoPrincipalModel> listModel = this._contatoPricipalRepository.consultaPorIdUsuario(dto.getIdUsuario());
 
         if (!listModel.isEmpty()){
             model.setId(listModel.get(0).getId());
@@ -66,7 +66,7 @@ public class ContatoPrincipalService {
 
     public ContatoPrincipalModel criar(ContatoPrincipalDto dto) {
 
-        List<ContatoPrincipalModel> listModel = this._contatoPricipalRepository.consultaConatoPrincipal();
+        List<ContatoPrincipalModel> listModel = this._contatoPricipalRepository.consultaPorIdUsuario(dto.getIdUsuario());
         if (!listModel.isEmpty()) {
             throw new ValidationException(REGISTRO_CADASTRADO);
         }

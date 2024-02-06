@@ -17,6 +17,13 @@ public interface ContatoPricipalRepository extends JpaRepository<ContatoPrincipa
     List<ContatoPrincipalModel> consultaPorId(@Param("id") UUID id);
 
     @Query(value = "SELECT c" +
+            " FROM ContatoPrincipalModel c" +
+            " WHERE c.id = :idUsuario")
+    List<ContatoPrincipalModel> consultaPorIdUsuario(@Param("idUsuario") String idUsuario);
+
+    @Query(value = "SELECT c" +
             " FROM ContatoPrincipalModel c")
     List<ContatoPrincipalModel> consultaConatoPrincipal();
+
+
 }
