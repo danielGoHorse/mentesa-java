@@ -17,7 +17,7 @@ public class UsuarioModel {
     private UUID id;
 
     @Column(name = "id_fire")
-    private String id_fire;
+    private String idFire;
 
     @Column(name = "create_date")
     private LocalDateTime createDate;

@@ -26,14 +26,15 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository _usuarioRepository;
 
-    public UsuarioVO consultaUsuarioByFire(String id_fire) {
+    public UsuarioVO consultaUsuarioByFire(String idFire) {
 
-        UsuarioModel model = this._usuarioRepository.consultaPorIdFire(id_fire);
+        //UsuarioModel model = new UsuarioModel();
+        UsuarioModel model = this._usuarioRepository.consultaPorIdFire(idFire);
         UsuarioVO vo = new UsuarioVO();
 
-        if (model != null) {
+        if (model.getIdFire() != null) {
             vo.setId(model.getId());
-            vo.setId_fire(model.getId_fire());
+            vo.setId_fire(model.getIdFire());
             vo.setNome(model.getNome());
             vo.setStatus(model.isStatus());
             vo.setTelefone(model.getTelefone());
@@ -48,11 +49,11 @@ public class UsuarioService {
 
     public UsuarioModel criar(UsuarioDto dto) {
 
-//        UsuarioModel model = this._usuarioRepository.consultaPorIdFire(dto.getId_fire());
+        //UsuarioModel model = new UsuarioModel();
+        UsuarioModel model = this._usuarioRepository.consultaPorIdFire(dto.getIdFire());
 
-        UsuarioModel model = new UsuarioModel();
-
-            model.setId_fire(dto.getId_fire());
+        if (model.getIdFire() != null) {
+            model.setIdFire(dto.getIdFire());
             model.setNome(dto.getNome());
             model.setEmail(dto.getEmail());
             model.setTelefone(dto.getTelefone());
@@ -61,27 +62,25 @@ public class UsuarioService {
             model.setUpdateDate(LocalDateTime.now());
 
             model = this._usuarioRepository.save(model);
-
+        }
 
         return model;
     }
 
     public UsuarioModel editar(UsuarioDto dto) {
 
-//        UsuarioModel model = this._usuarioRepository.consultaPorIdFire(dto.getId_fire());
+        UsuarioModel model = new UsuarioModel();
+        List<UsuarioModel> listModel = this._usuarioRepository.consultaListaUsuarioPorId(dto.getIdFire());
 
-        UsuarioModel model = this._usuarioRepository.consultaPorIdFire(dto.getId_fire());
+        if(!listModel.isEmpty()){
+            listModel.get(0).setIdFire(dto.getIdFire());
+            listModel.get(0).setNome(dto.getNome());
+            listModel.get(0).setEmail(dto.getEmail());
+            listModel.get(0).setTelefone(dto.getTelefone());
+            listModel.get(0).setStatus(true);
+            listModel.get(0).setUpdateDate(LocalDateTime.now());
 
-
-        if(model != null){
-            model.setId_fire(dto.getId_fire());
-            model.setNome(dto.getNome());
-            model.setEmail(dto.getEmail());
-            model.setTelefone(dto.getTelefone());
-            model.setStatus(true);
-            model.setUpdateDate(LocalDateTime.now());
-
-            model = this._usuarioRepository.save(model);
+            model = this._usuarioRepository.save(listModel.get(0));
         } else {
             throw new ValidationException(REGISTRO_NAO_ENCONTRADO);
         }

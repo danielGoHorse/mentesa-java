@@ -8,7 +8,7 @@ import java.util.UUID;
 public class UsuarioDto {
 
     private String nome;
-    private String id_fire;
+    private String idFire;
     private String email;
     private boolean status;
     private String telefone;
