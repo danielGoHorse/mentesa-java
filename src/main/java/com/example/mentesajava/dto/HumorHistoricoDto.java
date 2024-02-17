@@ -5,8 +5,9 @@ import lombok.Data;
 import java.util.UUID;
 
 @Data
-public class HumorDto {
-    private UUID id;
-    private boolean status;
+public class HumorHistoricoDto {
+
+    private Integer humor;
+    private String mensagem;
 
 }

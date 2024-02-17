@@ -1,14 +1,13 @@
 package com.example.mentesajava.service;
 
-import com.example.mentesajava.model.HumorModel;
-import com.example.mentesajava.model.UsuarioModel;
-import com.example.mentesajava.repository.HumorRepository;
-import com.example.mentesajava.repository.UsuarioRepository;
+import com.example.mentesajava.dto.HumorHistoricoDto;
+import com.example.mentesajava.model.HumorHistoricoModel;
+import com.example.mentesajava.repository.HumorHistoricoRepository;
 import com.example.mentesajava.vo.HumorVO;
-import com.example.mentesajava.vo.UsuarioVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,20 +17,37 @@ public class HumorService {
     private static final String REGISTRO_NAO_ENCONTRADO = "Registro não encontrado!";
 
     @Autowired
-    private HumorRepository _humorRepository;
+    private HumorHistoricoRepository _humorRepository;
 
 
-    public HumorVO retornaHumor() {
 
-        List<HumorModel> listModel = this._humorRepository.consultaHumor();
+    public List<HumorVO> consultaHumorHistorico() {
 
-        HumorVO vo = new HumorVO();
+        List<HumorHistoricoModel> listModel = this._humorRepository.consultaHumorHistorico();
+
+        List humorListVo = new ArrayList<>();
         if (!listModel.isEmpty()){
-            vo.setId(listModel.get(0).getId());
-//            vo.setStatus(listModel.get(0).getCreateDate());
+            HumorVO humorVo = new HumorVO();
+            for (int i = 0; i < listModel.size(); i++) {
+                humorVo.setId(listModel.get(i).getId());
+            }
+            humorListVo.add(humorVo);
+
         }
 
-        return vo;
+        return humorListVo;
 
+    }
+
+    public HumorHistoricoModel salvar(HumorHistoricoDto dto) {
+
+        HumorHistoricoModel model = new HumorHistoricoModel();
+
+        model.setHumor(dto.getHumor());
+        model.setMensagem(dto.getMensagem());
+
+        model = this._humorRepository.save(model);
+
+        return model;
     }
 }
